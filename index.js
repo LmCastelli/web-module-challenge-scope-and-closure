@@ -28,11 +28,17 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+
+      counter1 would be used to store a team's score for instance, it would keep that counter and only increment whenever that specific counter was called. counter2 would just increment the counter when called, which could be bad if you wanted to keep track of separate scores. 
   
   2. Which of the two uses a closure? How can you tell?
+
+      counter1, as it calls the function counterMaker in order to receive its value
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+
+      If you wanted individual scores, counter1, if you were trying to loop through something X times, counter2. 
 */
 
 // counter1 code
@@ -62,8 +68,9 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+    let score = Math.floor(Math.random() * 3);
+    return score 
 }
 
 
@@ -81,8 +88,17 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(inningcb,num) {
+  let homeScore = 0;
+  let awayScore = 0;
+  for (let i = 0; i < num; i++) {
+    homeScore += inning();
+    awayScore += inning();
+  }
+  return {
+    "Home": homeScore,
+    "Away": awayScore
+  }
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -90,8 +106,11 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inningcb) {
+  return {
+    "Home": inningcb(),
+    "Away": inningcb()
+  }
 }
 
 
@@ -136,10 +155,27 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScorecb,inningcb,num) {
+  const scoreArray = [];
+  let homeScore = 0;
+  let awayScore = 0;
+  for (let i = 0; i <= num; i++) {
+    let awayInning = inning();
+    let homeInning = inning();
+    homeScore += homeInning;
+    awayScore += awayInning;
+    scoreArray.push(`Inning ${i}: Away ${awayInning} - Home ${homeInning}`);
+  }
+  if (awayScore == homeScore) {
+    scoreArray.push(`This game will require extra innings: Away ${awayScore} - Home ${homeScore}`)
+  }
+  else {
+    scoreArray.push(`Final Score: Away ${awayScore} - Home ${homeScore}`)
+  }
+  return scoreArray
 }
 
+console.log(scoreboard(getInningScore,inning, 4))
 
 
 
