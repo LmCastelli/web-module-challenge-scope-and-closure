@@ -59,6 +59,9 @@ You will be running your tests in one terminal and debugging in the other. As yo
 Edit the `ReadMe` file with your answers to the questions below.
 
 1. In your own words, define closure (1-2 sentences).
+
+  Closure is when nested functions can reference higher (or outer nested) functions. These inner functions can access higher variables instead of needing to redefine or make their own version of those variables. 
+  
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -80,9 +83,16 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+
+  dansRoll and zoesRoll are both closure, as those consts are invoking personalDice to get the roll for those individuals. We can tell it's closure due to it reaching into the function to get unique values.
+
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+
+  The string itself is always the same, with the exception of the newRoll. Dan is still the one "rolling" but his roll will change at each invocation. 
+
 c. What is the lexical scope of `newRoll`? 
 
+  newRoll is only within the function, if you try to call or log outside of the function it will not be defined. 
 
 ### Task 3 - Stretch Goals
 
